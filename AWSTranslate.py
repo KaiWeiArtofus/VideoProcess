@@ -18,12 +18,12 @@ class Translate(object):
 #            print(caption.start)
 #            print(caption.end)
 #            print(caption.text)
-            trans = Translate.AWSTranslate.translate_text(Text=caption.text, SourceLanguageCode=self.sourceLanguage, TargetLanguageCode=self.targetLanguage)
+            translation = Translate.AWSTranslate.translate_text(Text=caption.text, SourceLanguageCode=self.sourceLanguage, TargetLanguageCode=self.targetLanguage)
 
-            newCaption = Caption(caption.start, caption.end, trans.get('TranslatedText'))
+            newCaption = Caption(caption.start, caption.end, translation.get('TranslatedText'))
             newCaption.identifier = caption.identifier
             newVTT.captions.append(newCaption)
 
-        newFileName = self.fileNameWOType + '_' + self.targetLanguage + '.vtt'
-        newVTT.save(newFileName)
+        translatedFileName = self.fileNameWOType + '_' + self.targetLanguage + '.vtt'
+        newVTT.save(translatedFileName)
         return 1
